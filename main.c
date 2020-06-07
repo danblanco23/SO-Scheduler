@@ -2,59 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-void readFile();
+#include "Process.c"
+#include "Scheduler.c"
+#include "Queue.c"
 
 
+struct Scheduler scheduler1;
+struct Process listProcess[25];  //Como el maximo son 25 procesos
 
-typedef struct process{
-    int id;
-    int arrivalTime;
-    int jobQuantity;
-} process;
-
-typedef struct scheduler{
-    char algorithm[50];
-    int operationMode;
-    int processes;
-    int quantum;
-
-} scheduler;
-
-struct scheduler scheduler1;
-
-
-struct process listProcess[25];  //Como el maximo son 25 procesos
-
-/*
- * Entrada: Un proceso, y dos strings, el primero es la linea de texto donde viene los datos del proceso y la segunda el
- * separador.
- * Salida: Un proceso con los valores asignados.
- */
-struct process splitProcess(struct process process, char const *str, char const *delim){
-    char *ptr = strtok(str, delim);
-
-    int i = 0;
-    while(ptr != NULL)
-    {
-        if(i == 0){
-            process.id = atoi(ptr);
-        }
-        else if(i == 1){
-            process.arrivalTime = atoi(ptr);
-        }
-        else if(i == 2){
-            process.jobQuantity = atoi(ptr);
-        }
-        ptr = strtok(NULL, delim);
-        i++;
-    }
-    return process;
-}
 
 void readFile(){
     FILE *inputFile;
     char line[50];
-    struct process process;
+    struct Process process;
 
     inputFile = fopen("/home/danblanco/SO-Scheduler/input.txt","r");
 
@@ -79,7 +39,7 @@ void readFile(){
                 scheduler1.operationMode = atoi(line);
             }
             else if (i==2){
-                scheduler1.processes = atoi(line);
+                scheduler1.processQuantity = atoi(line);
             }
             else if (i==3){
                 scheduler1.quantum =atoi(line);
@@ -96,10 +56,11 @@ void readFile(){
     }
     printf( "\nalgorithm: %s", scheduler1.algorithm);
     printf( "\nopMode: %d", scheduler1.operationMode);
-    printf( "\nproce: %d", scheduler1.processes);
+    printf( "\nproce: %d", scheduler1.processQuantity);
     printf( "\nquantum: %d", scheduler1.quantum);
-    for(int i=0; i <= scheduler1.processes - 1; i++){
+    for(int i=0; i <= scheduler1.processQuantity - 1; i++){
         printf("\nid %d", listProcess[i].id);
+        enqueue(listProcess[i]);  //Se llena la cola
     }
 
     fclose(inputFile);
@@ -107,5 +68,12 @@ void readFile(){
 
 int main() {
     readFile();
+    showQueue();
+    FCFS(scheduler1);
+    showQueue();
+    for(int i = 0; i < scheduler1.processQuantity; i++){
+        printf("id: %d, Result: %Le\n", finishedProcess[i].id,finishedProcess[i].result);
+    }
+    printf("%Le",finishedProcess[0].result * finishedProcess[1].result);
     return 0;
 }
