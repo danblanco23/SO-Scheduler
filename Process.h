@@ -10,7 +10,6 @@ typedef struct Process{
     int arrivalTime;
     int jobQuantity;
     int jobDone;
-    int iteration;
     long double lastTaylor;
     long double result;
 } Process;

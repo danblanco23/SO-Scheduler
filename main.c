@@ -16,7 +16,7 @@ void readFile(){
     char line[50];
     struct Process process;
 
-    inputFile = fopen("/home/danblanco/SO-Scheduler/input.txt","r");
+    inputFile = fopen("input.txt","r");
 
     if (inputFile == NULL)
         exit(1);
@@ -59,7 +59,7 @@ void readFile(){
     printf( "\nproce: %d", scheduler1.processQuantity);
     printf( "\nquantum: %d", scheduler1.quantum);
     for(int i=0; i <= scheduler1.processQuantity - 1; i++){
-        printf("\nid %d", listProcess[i].id);
+        printf("\nid %d", listProcess[i].jobQuantity);
         enqueue(listProcess[i]);  //Se llena la cola
     }
 
@@ -72,8 +72,20 @@ int main() {
     FCFS(scheduler1);
     showQueue();
     for(int i = 0; i < scheduler1.processQuantity; i++){
-        printf("id: %d, Result: %Le\n", finishedProcess[i].id,finishedProcess[i].result);
+        Process p = finishedProcess[i];
+        printf("id: %d, Result: %Lf\n", finishedProcess[i].id,2*finishedProcess[i].result);
     }
-    printf("%Le",finishedProcess[0].result * finishedProcess[1].result);
+
+    long double x,sum,last;
+    x = 1;
+    last=1;
+    sum = 1;
+    int limit = 20000;
+    for(int i = 1;i <= limit;i++) //cede el control de acuerdo al quantum
+    {
+        last*=((x*x)*(2*i-1)*(2*i-1))/((2*i)*(2*i+1));
+        sum+=last;
+    }
+    printf("\nResultadoooooo: %LF\n",2*sum);
     return 0;
 }

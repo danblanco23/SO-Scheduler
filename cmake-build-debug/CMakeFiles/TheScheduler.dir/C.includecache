@@ -6,39 +6,39 @@
 
 #IncludeRegexTransform: 
 
-/home/danblanco/SO-Scheduler/Process.c
+/Users/dereck/CLionProjects/SO-Scheduler/Process.c
 stdio.h
-/home/danblanco/SO-Scheduler/stdio.h
+/Users/dereck/CLionProjects/SO-Scheduler/stdio.h
 stdlib.h
-/home/danblanco/SO-Scheduler/stdlib.h
+/Users/dereck/CLionProjects/SO-Scheduler/stdlib.h
 string.h
-/home/danblanco/SO-Scheduler/string.h
+/Users/dereck/CLionProjects/SO-Scheduler/string.h
 Process.h
-/home/danblanco/SO-Scheduler/Process.h
+/Users/dereck/CLionProjects/SO-Scheduler/Process.h
 
-/home/danblanco/SO-Scheduler/Process.h
+/Users/dereck/CLionProjects/SO-Scheduler/Process.h
 
-/home/danblanco/SO-Scheduler/Queue.c
+/Users/dereck/CLionProjects/SO-Scheduler/Queue.c
 Queue.h
-/home/danblanco/SO-Scheduler/Queue.h
+/Users/dereck/CLionProjects/SO-Scheduler/Queue.h
 
-/home/danblanco/SO-Scheduler/Queue.h
+/Users/dereck/CLionProjects/SO-Scheduler/Queue.h
 Process.h
-/home/danblanco/SO-Scheduler/Process.h
+/Users/dereck/CLionProjects/SO-Scheduler/Process.h
 
-/home/danblanco/SO-Scheduler/Scheduler.c
+/Users/dereck/CLionProjects/SO-Scheduler/Scheduler.c
 stdio.h
 -
 stdlib.h
 -
 Scheduler.h
-/home/danblanco/SO-Scheduler/Scheduler.h
+/Users/dereck/CLionProjects/SO-Scheduler/Scheduler.h
 
-/home/danblanco/SO-Scheduler/Scheduler.h
+/Users/dereck/CLionProjects/SO-Scheduler/Scheduler.h
 Queue.h
-/home/danblanco/SO-Scheduler/Queue.h
+/Users/dereck/CLionProjects/SO-Scheduler/Queue.h
 
-/home/danblanco/SO-Scheduler/main.c
+/Users/dereck/CLionProjects/SO-Scheduler/main.c
 stdio.h
 -
 stdlib.h
@@ -46,9 +46,9 @@ stdlib.h
 string.h
 -
 Process.c
-/home/danblanco/SO-Scheduler/Process.c
+/Users/dereck/CLionProjects/SO-Scheduler/Process.c
 Scheduler.c
-/home/danblanco/SO-Scheduler/Scheduler.c
+/Users/dereck/CLionProjects/SO-Scheduler/Scheduler.c
 Queue.c
-/home/danblanco/SO-Scheduler/Queue.c
+/Users/dereck/CLionProjects/SO-Scheduler/Queue.c
 

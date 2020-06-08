@@ -15,5 +15,6 @@ typedef struct Scheduler{
 } Scheduler;
 
 void FCFS(struct Scheduler scheduler);
+void SJF(struct Scheduler scheduler);
 
 #endif //THESCHEDULER_SCHEDULER_H
