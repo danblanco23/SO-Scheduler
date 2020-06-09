@@ -66,10 +66,12 @@ void readFile(){
     fclose(inputFile);
 }
 
+
 int main() {
     readFile();
     showQueue();
-    FCFS(scheduler1);
+    //FCFS(scheduler1);
+    SJF(scheduler1);
     showQueue();
     for(int i = 0; i < scheduler1.processQuantity; i++){
         Process p = finishedProcess[i];
