@@ -18,7 +18,7 @@ Node* last = NULL;
 void enqueue(Process process);
 struct Process dequeue();
 void showQueue();
-struct Process getShortest(int);
-struct Process search_and_destroy(int);
+struct Process *getShortest(int);
+int checkFinished();
 
 #endif //THESCHEDULER_QUEUE_H

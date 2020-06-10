@@ -12,6 +12,7 @@ typedef struct Process{
     int jobDone;
     long double lastTaylor;
     long double result;
+    int finished;
 } Process;
 
 struct Process splitProcess(struct Process process, char const *str, char const *delim);

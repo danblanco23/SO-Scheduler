@@ -69,25 +69,14 @@ void readFile(){
 
 int main() {
     readFile();
-    showQueue();
+    //showQueue();
     //FCFS(scheduler1);
     SJF(scheduler1);
     showQueue();
-    for(int i = 0; i < scheduler1.processQuantity; i++){
+    /*for(int i = 0; i < scheduler1.processQuantity; i++){
         Process p = finishedProcess[i];
         printf("id: %d, Result: %Lf\n", finishedProcess[i].id,2*finishedProcess[i].result);
-    }
+    }*/
 
-    long double x,sum,last;
-    x = 1;
-    last=1;
-    sum = 1;
-    int limit = 20000;
-    for(int i = 1;i <= limit;i++) //cede el control de acuerdo al quantum
-    {
-        last*=((x*x)*(2*i-1)*(2*i-1))/((2*i)*(2*i+1));
-        sum+=last;
-    }
-    printf("\nResultadoooooo: %LF\n",2*sum);
     return 0;
 }

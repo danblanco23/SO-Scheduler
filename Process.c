@@ -32,5 +32,6 @@ struct Process splitProcess(struct Process process, char const *str, char const 
     process.lastTaylor = 1;
     process.jobDone = 0;
     process.result = 1;
+    process.finished = 0;
     return process;
 }

@@ -49,7 +49,7 @@ void showQueue(){
 
     if(first != NULL){
         while (pivot != NULL){
-            printf("Proceso: %d ,Trabajo hecho: %d, Trabajo total: %d Valor: %LF\n\n", pivot->process.id,pivot->process.jobDone,pivot->process.jobQuantity,pivot->process.result);
+            printf("\nProceso: %d ,Trabajo hecho: %d, Trabajo total: %d Valor: %LF\n\n", pivot->process.id,pivot->process.jobDone,pivot->process.jobQuantity,2*pivot->process.result);
             pivot = pivot->next;
         }
     } else{
@@ -57,70 +57,58 @@ void showQueue(){
     }
 }
 
-struct Process getShortest(int currentTime){        //recibe el tiempo actual en la iteracion
+struct Process *getShortest(int currentTime){        //recibe el tiempo actual en la iteracion
     Node* aux = (Node*) malloc(sizeof(Node));
     aux = first;    //puntero copia de procesos
     int SJ =0;
     int firstTime = 1;
-    int shortestID;
-    struct Process process;
-    while(aux != NULL){
-        process = aux->process;
+    struct Process *shortestProcess;
+    if(currentTime==0){             //tiempo 1 retorne primer proceso
+        return &aux->process;
+    }
+    else{                       //tiempo 2 o mas busque el menor de los procesos
+        while(aux != NULL){
 
-        if(process.arrivalTime<=currentTime){   //si el arribo del proceso coincide con el tiempo solicitado
-            int currentJob;
-            process = aux->process;
-            currentJob = process.jobQuantity;
-            if(firstTime){
-                SJ = process.jobQuantity;
-                firstTime = 0;
-                shortestID = process.id;
+            if(aux->process.arrivalTime<=currentTime){   //si el arribo del proceso coincide con el tiempo solicitado
+                int currentJob;
+                currentJob = aux->process.jobQuantity;
+                if(firstTime && currentJob !=0){
+                    SJ = aux->process.jobQuantity;
+                    firstTime = 0;
+                    shortestProcess = &aux->process;
+                }
+                if(currentJob < SJ && currentJob !=0){           //verifica si el proceso viene con trabajo menor
+                    SJ = currentJob;            //guarda el menor
+                    shortestProcess = &aux->process;
+                    aux = aux->next;
+                }
+                else{
+                    aux = aux->next;        //siguiente
+                }
             }
-            if(currentJob < SJ ){           //verifica si el proceso viene con trabajo menor
-                SJ = currentJob;            //guarda el menor
-                shortestID = process.id;    //guarda el id del menor
+            else{
                 aux = aux->next;
             }
-            else{
-                aux = aux->next;        //siguiente
-            }
-        }
-        else{
-            aux = aux->next;
+
         }
 
+        return shortestProcess;
     }
-    Process p = search_and_destroy(shortestID);
-    showQueue();
-    return p;
+
 }
 
-struct Process search_and_destroy(int processId){       //busca un nodo por id y lo elimina(un dequeue dirigido)
+int checkFinished(){
     Node* aux = (Node*) malloc(sizeof(Node));
-    Node* prev = (Node*) malloc(sizeof(Node));
     aux = first;
-    prev = first;
     struct Process process;
-    int found =0;
-    while(aux != NULL || found == 0){
+    int finished= 0;
+    while(aux != NULL) {
         process = aux->process;
-        if(process.id == processId){
-            if(aux == first){
-                first = first->next;
-            }
-            else{
-                prev->next = aux->next;
-            }
-            found = 1;
-        }
-        else{
-            prev = aux;
-            aux = aux->next;
-        }
+        if(process.jobQuantity>0)
+            finished = 1;
+
+        aux = aux->next;
     }
-
-    return process;
-
-
+    return finished;
 }
 
