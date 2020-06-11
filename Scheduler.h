@@ -1,9 +1,9 @@
 //
-// Created by Dereck Escalante on 5/30/20.
+// Created by danblanco on 9/6/20.
 //
 
-#ifndef THESCHEDULER_SCHEDULER_H
-#define THESCHEDULER_SCHEDULER_H
+#ifndef THE_SCHEDULER_SCHEDULER_H
+#define THE_SCHEDULER_SCHEDULER_H
 
 #include "Queue.h"
 
@@ -14,7 +14,8 @@ typedef struct Scheduler{
     int quantum;
 } Scheduler;
 
-void FCFS(struct Scheduler scheduler);
+void FCFS(struct Scheduler scheduler, struct Process listProcess[25]);
 void SJF(struct Scheduler scheduler);
+void RR(struct Scheduler scheduler, struct Process listProcess[25]);
 
-#endif //THESCHEDULER_SCHEDULER_H
+#endif //THE_SCHEDULER_SCHEDULER_H

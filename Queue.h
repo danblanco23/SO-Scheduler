@@ -1,10 +1,9 @@
 //
-// Created by danblanco on 3/6/20.
+// Created by danblanco on 9/6/20.
 //
 
-#ifndef THESCHEDULER_QUEUE_H
-#define THESCHEDULER_QUEUE_H
-
+#ifndef THE_SCHEDULER_QUEUE_H
+#define THE_SCHEDULER_QUEUE_H
 #include "Process.h"
 
 typedef struct Node{
@@ -18,7 +17,7 @@ Node* last = NULL;
 void enqueue(Process process);
 struct Process dequeue();
 void showQueue();
-struct Process getShortest(int);
-struct Process search_and_destroy(int);
+struct Process *getShortest(int);
+int checkFinished();
 
-#endif //THESCHEDULER_QUEUE_H
+#endif //THE_SCHEDULER_QUEUE_H
