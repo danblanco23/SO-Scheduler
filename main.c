@@ -15,7 +15,7 @@ void readFile(){
     char line[50];
     struct Process process;
 
-    inputFile = fopen("/home/danblanco/The Scheduler/input.txt","r");
+    inputFile = fopen("input.txt","r");
 
     if (inputFile == NULL)
         exit(1);
@@ -89,7 +89,7 @@ int main() {
         last*=((x*x)*(2*i-1)*(2*i-1))/((2*i)*(2*i+1));
         sum+=last;
     }
-    printf("\nResultadoooooo: %LF\n",2*sum);
+    //printf("\nResultadoooooo: %LF\n",2*sum);
 
 
     if(strcmp(scheduler1.algorithm, "FCFS") == 0){
@@ -119,10 +119,18 @@ int main() {
             RR(scheduler1, listProcess);
         }
     }
+    else if (strcmp(scheduler1.algorithm, "MQS") == 0){
+
+        dequeue();
+        for(int i=0; i <= scheduler1.processQuantity - 1; i++){
+            enqueue(listProcess[i]);  //Se llena la cola
+        }
+        MQS(scheduler1,listProcess);
+    }
 
     for(int i = 0; i <= scheduler1.processQuantity-1; i++){
-        printf("\nId: %d Res: %LF", finishedProcess[i].id, finishedProcess[i].result);
+        //printf("\nId: %d Res: %LF", finishedProcess[i].id, finishedProcess[i].result);
     }
-    showQueue();
+    //showQueue();
     return 0;
 }

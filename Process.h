@@ -2,8 +2,8 @@
 // Created by danblanco on 9/6/20.
 //
 
-#ifndef THE_SCHEDULER_PROCESS_H
-#define THE_SCHEDULER_PROCESS_H
+#ifndef THESCHEDULER_PROCESS_H
+#define THESCHEDULER_PROCESS_H
 
 #include "stdbool.h"
 
@@ -15,6 +15,7 @@ typedef struct Process{
     int lastIteration;
     long double lastTaylor;
     long double result;
+    int priority;
     int finished;
 } Process;
 

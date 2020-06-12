@@ -17,6 +17,8 @@ Process.h
 /Users/dereck/CLionProjects/SO-Scheduler/Process.h
 
 /Users/dereck/CLionProjects/SO-Scheduler/Process.h
+stdbool.h
+/Users/dereck/CLionProjects/SO-Scheduler/stdbool.h
 
 /Users/dereck/CLionProjects/SO-Scheduler/Queue.c
 Queue.h

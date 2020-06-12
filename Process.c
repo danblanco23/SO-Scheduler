@@ -25,6 +25,9 @@ struct Process splitProcess(struct Process process, char const *str, char const 
         else if(i == 2){
             process.jobQuantity = atoi(ptr);
         }
+        else if(i == 3){
+            process.priority = atoi(ptr);
+        }
 
         ptr = strtok(NULL, delim);
         i++;

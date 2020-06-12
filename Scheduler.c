@@ -162,3 +162,51 @@ void RR(struct Scheduler scheduler, struct Process listProcess[25]){
     }
 }
 
+void MQS(struct Scheduler scheduler, struct Process listProcess[25]){
+    //Node* aux = (Node*) malloc(sizeof(Node));
+    //aux = first;    //puntero copia de procesos
+    struct Process priority[25][25];        //Array multidimensional de 25 x 25
+    for(int m = 0 ; m < 25 ; m++){          //LLena array de procesos nulos
+        for(int n = 0; n < 25 ; n ++){
+            Process p;
+            p.id = -1;
+            priority[m][n] = p;
+        }
+    }
+    int x ;
+    while(first!=NULL){
+        Process proceso = dequeue();
+        int i = 0;
+        x = proceso.priority;          //coloca el proceso en su cola de prioridad donde filas( x )son prioridad
+        while(i < 25 ){       // y las columnas ( i ) son donde se colocan los procesos en la celda
+            if(priority[x][i].id == -1){
+                priority[x][i] = proceso;
+                break;
+
+            }
+            i++;
+
+        }
+
+    }
+    for(int y = 0; y < 25 ; y++){       //Recorre todas las prioridades
+        struct Process list[25];
+        int z;
+        int entered = 0;
+        for(z = 0; z < 25 ; z++){
+            if(priority[y][z].id != -1 ){
+                list[z] = priority[y][z];
+                entered = 1;
+
+            }
+
+        }
+        if(entered){
+            enqueue(list[0]);
+            RR(scheduler,list);
+            printf("Prioridad %d:\n", y);
+            showQueue();
+        }
+
+    }
+}

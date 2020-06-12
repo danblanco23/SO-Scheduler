@@ -2,8 +2,8 @@
 // Created by danblanco on 9/6/20.
 //
 
-#ifndef THE_SCHEDULER_QUEUE_H
-#define THE_SCHEDULER_QUEUE_H
+#ifndef THESCHEDULER_QUEUE_H
+#define THESCHEDULER_QUEUE_H
 #include "Process.h"
 
 typedef struct Node{
@@ -20,4 +20,4 @@ void showQueue();
 struct Process *getShortest(int);
 int checkFinished();
 
-#endif //THE_SCHEDULER_QUEUE_H
+#endif //THESCHEDULER_QUEUE_H
