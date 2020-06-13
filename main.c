@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <gtk/gtk.h>
 #include "Process.c"
 #include "Scheduler.c"
 #include "Queue.c"
+#include "Interface.h"
+#include <pthread.h>
 
 
 struct Scheduler scheduler1;
 struct Process listProcess[25];  //Como el maximo son 25 procesos
-
+struct Interface interface;
 void readFile(){
     FILE *inputFile;
     char line[50];
@@ -73,8 +75,33 @@ void readFile(){
     fclose(inputFile);
 }
 
-int main() {
+static void activate(GtkApplication *app, gpointer user_data)
+{
+    GtkWidget *window;
 
+    window = gtk_application_window_new(app);
+    gtk_window_set_title(GTK_WINDOW(window), "Window");
+    gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
+    gtk_widget_show_all(window);
+}
+void char_at_a_time( const char * str ) { while( *str!= '\0' ) {
+        putchar( *str++ );
+        fflush( stdout );
+        usleep(50);
+    }
+}
+
+
+int main(int argc, char **argv) {
+
+
+   /* if (forkStatus == 0) {
+        init(&argc,&argv,&interface);
+        update(&interface,"Hola");
+    }*/
+
+
+    //update(interface,"Dereck");
     readFile();
     showQueue();
 
@@ -131,6 +158,17 @@ int main() {
     for(int i = 0; i <= scheduler1.processQuantity-1; i++){
         //printf("\nId: %d Res: %LF", finishedProcess[i].id, finishedProcess[i].result);
     }
+
+    /*GtkApplication *app;
+    int status;
+
+    app = gtk_application_new("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+    g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
+    status = g_application_run(G_APPLICATION(app), argc, argv);
+    g_object_unref(app);*/
     //showQueue();
+    /*-- Declare the GTK Widgets used in the program --*/
+
+
     return 0;
 }

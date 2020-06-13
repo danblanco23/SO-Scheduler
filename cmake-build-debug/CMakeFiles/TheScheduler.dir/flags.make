@@ -6,5 +6,5 @@ C_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacO
 
 C_DEFINES = 
 
-C_INCLUDES = 
+C_INCLUDES = -I/usr/local/Cellar/libffi/3.3/include -I/usr/local/Cellar/gtk+3/3.24.18_1/include/gtk-3.0 -I/usr/local/Cellar/glib/2.64.3/include/gio-unix-2.0 -I/usr/local/Cellar/cairo/1.16.0_3/include/cairo -I/usr/local/Cellar/libepoxy/1.5.4_1/include -I/usr/local/Cellar/pango/1.44.7/include/pango-1.0 -I/usr/local/Cellar/fribidi/1.0.9/include/fribidi -I/usr/local/Cellar/harfbuzz/2.6.6/include/harfbuzz -I/usr/local/Cellar/graphite2/1.3.14/include -I/usr/local/Cellar/atk/2.36.0/include/atk-1.0 -I/usr/local/Cellar/pixman/0.40.0/include/pixman-1 -I/usr/local/Cellar/fontconfig/2.13.1/include -I/usr/local/opt/freetype/include/freetype2 -I/usr/local/Cellar/libpng/1.6.37/include/libpng16 -I/usr/local/Cellar/gdk-pixbuf/2.40.0_1/include/gdk-pixbuf-2.0 -I/usr/local/Cellar/glib/2.64.3/include -I/usr/local/Cellar/glib/2.64.3/include/glib-2.0 -I/usr/local/Cellar/glib/2.64.3/lib/glib-2.0/include -I/usr/local/opt/gettext/include -I/usr/local/Cellar/pcre/8.44/include 
 

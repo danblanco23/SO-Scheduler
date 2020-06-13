@@ -123,6 +123,33 @@ TheScheduler/fast:
 	$(MAKE) -f CMakeFiles/TheScheduler.dir/build.make CMakeFiles/TheScheduler.dir/build
 .PHONY : TheScheduler/fast
 
+Interface.o: Interface.c.o
+
+.PHONY : Interface.o
+
+# target to build an object file
+Interface.c.o:
+	$(MAKE) -f CMakeFiles/TheScheduler.dir/build.make CMakeFiles/TheScheduler.dir/Interface.c.o
+.PHONY : Interface.c.o
+
+Interface.i: Interface.c.i
+
+.PHONY : Interface.i
+
+# target to preprocess a source file
+Interface.c.i:
+	$(MAKE) -f CMakeFiles/TheScheduler.dir/build.make CMakeFiles/TheScheduler.dir/Interface.c.i
+.PHONY : Interface.c.i
+
+Interface.s: Interface.c.s
+
+.PHONY : Interface.s
+
+# target to generate assembly for a file
+Interface.c.s:
+	$(MAKE) -f CMakeFiles/TheScheduler.dir/build.make CMakeFiles/TheScheduler.dir/Interface.c.s
+.PHONY : Interface.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... TheScheduler"
+	@echo "... Interface.o"
+	@echo "... Interface.i"
+	@echo "... Interface.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

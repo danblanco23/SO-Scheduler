@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/TheScheduler.dir/Interface.c.o"
   "CMakeFiles/TheScheduler.dir/main.c.o"
   "TheScheduler"
   "TheScheduler.pdb"
