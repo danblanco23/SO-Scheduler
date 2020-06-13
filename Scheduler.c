@@ -8,11 +8,11 @@ int timer = 1;
 void FCFS(struct Scheduler scheduler, struct Process listProcess[25]){
     int a = 0;
     while(first != NULL){
-        showQueue();
+        progressBar();
         printf("----------------\n");
 
-        struct Process process = dequeue(); //cabeza
 
+        struct Process process = dequeue(); //cabeza
         if(process.jobQuantity > 0){ //si el trabajo hecho por el proceso es menor al maximo pedido
             long double x,sum,last;
             x = 1;
@@ -31,8 +31,10 @@ void FCFS(struct Scheduler scheduler, struct Process listProcess[25]){
             process.jobQuantity = process.jobQuantity*0;
 
             process.result = 2*process.result;
-            finishedProcess[a] = process; // si el proceso termino su trabajo
+
+            finishedProcess[a] = process; // el proceso termino su trabajo
             a++;
+
 
         }
         for(int i = 0; i <= scheduler.processQuantity; i++){
@@ -66,6 +68,8 @@ void SJF(struct Scheduler scheduler) {
                 process->jobDone = process->jobDone + 1;
                 process->jobQuantity = process->jobQuantity - 1;
                 arrival = arrival + 1;
+                progressBar();
+
             }
 
         }
@@ -91,6 +95,8 @@ void SJF(struct Scheduler scheduler) {
                 process->jobDone = process->jobQuantity;
                 process->jobQuantity = 0;
                 arrival = arrival + 1;
+                progressBar();
+
             }
         }
     }
@@ -101,6 +107,7 @@ void RR(struct Scheduler scheduler, struct Process listProcess[25]){
     int a = 0;
 
     while(first != NULL){
+        progressBar();
         showQueue();
         printf("----------------\n");
 

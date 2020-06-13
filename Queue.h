@@ -19,5 +19,6 @@ struct Process dequeue();
 void showQueue();
 struct Process *getShortest(int);
 int checkFinished();
+void progressBar();
 
 #endif //THESCHEDULER_QUEUE_H

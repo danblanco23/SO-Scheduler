@@ -17,6 +17,7 @@ typedef struct Process{
     long double result;
     int priority;
     int finished;
+    int totalJob;
 } Process;
 
 struct Process splitProcess(struct Process process, char const *str, char const *delim);

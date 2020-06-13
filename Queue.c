@@ -1,4 +1,6 @@
 #include "Queue.h"
+#include <stdio.h>
+#include <math.h>
 
 void enqueue(Process process){
     Node* newNode = (Node*) malloc(sizeof(Node));
@@ -52,6 +54,33 @@ void showQueue(){
     } else{
         printf("No hay cola");
     }
+}
+void progressBar(){
+    Node* pivot = (Node*) malloc(sizeof(Node));
+    pivot = first;
+    int progressQuantity;
+    char bar[100]="";
+    if(first != NULL){
+        while (pivot != NULL){
+            progressQuantity = round((pivot->process.jobDone*30)/pivot->process.totalJob);
+            if(progressQuantity != 0){
+                for(int i =0 ; i<progressQuantity; i++){
+                    strcat(bar,"*");
+                }
+            }
+            else{
+                strcat(bar,"");
+            }
+
+
+            printf("Proceso: %d ,Progreso | %s |\n",pivot->process.id, bar);
+            pivot = pivot->next;
+        }
+    }
+    else{
+        printf("No hay cola");
+    }
+
 }
 
 struct Process *getShortest(int currentTime){        //recibe el tiempo actual en la iteracion

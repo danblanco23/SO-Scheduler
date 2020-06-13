@@ -37,5 +37,6 @@ struct Process splitProcess(struct Process process, char const *str, char const 
     process.result = 1;
     process.lastIteration = 1;
     process.finished = 0;
+    process.totalJob = process.jobQuantity;
     return process;
 }
