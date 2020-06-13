@@ -153,6 +153,45 @@ int main(int argc, char **argv) {
             enqueue(listProcess[i]);  //Se llena la cola
         }
         MQS(scheduler1,listProcess);
+
+    }else if (strcmp(scheduler1.algorithm, "PS") == 0) {
+
+        if (scheduler1.operationMode == 0) {
+            dequeue();
+            for (int i = 0; i <= scheduler1.processQuantity - 1; i++) {
+                enqueue(listProcess[i]);  //Se llena la cola
+            }
+            PS(scheduler1, listProcess);
+        } else if (scheduler1.operationMode == 1){
+            PSPreemptive(scheduler1, listProcess);
+        }
+    } else if (strcmp(scheduler1.algorithm, "PSRR") == 0){
+
+        int len = scheduler1.processQuantity;
+        struct Process p;
+
+        for (int i = 0; i < (len - 1); i++)
+        {
+            for (int j = i + 1; j < len; j++)
+            {
+                if (listProcess[j].priority < listProcess[i].priority)
+                {
+                    p = listProcess[j];
+                    listProcess[j] = listProcess[i];
+                    listProcess[i] = p;
+                }
+            }
+        }
+        for (int i = 0;i < len; i++)
+        {
+            printf(" \n%ddasda", listProcess[i].priority);
+        }
+
+        dequeue();
+        for(int i=0; i <= scheduler1.processQuantity - 1; i++){
+            enqueue(listProcess[i]);  //Se llena la cola
+        }
+        PSRR(scheduler1, listProcess);
     }
 
     for(int i = 0; i <= scheduler1.processQuantity-1; i++){
@@ -168,7 +207,9 @@ int main(int argc, char **argv) {
     g_object_unref(app);*/
     //showQueue();
     /*-- Declare the GTK Widgets used in the program --*/
-
+    for(int i = 0; i <= scheduler1.processQuantity-1; i++){
+        printf("\nId: %d Res: %LF", finishedProcess[i].id, finishedProcess[i].result);
+    }
 
     return 0;
 }

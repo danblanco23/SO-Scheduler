@@ -12,10 +12,10 @@ typedef struct Process{
     int arrivalTime;
     int jobQuantity;
     int jobDone;
+    int priority;
     int lastIteration;
     long double lastTaylor;
     long double result;
-    int priority;
     int finished;
     int totalJob;
 } Process;

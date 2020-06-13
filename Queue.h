@@ -6,6 +6,7 @@
 #define THESCHEDULER_QUEUE_H
 #include "Process.h"
 
+
 typedef struct Node{
     Process process;
     struct Node *next;
@@ -20,5 +21,12 @@ void showQueue();
 struct Process *getShortest(int);
 int checkFinished();
 void progressBar();
+struct Process *findHighestPriority(int, int);
+void deleteNode(int id);
+int findShortestArrivalTime();
+struct Node *findHighestPriorityPS(int, int);
+Node *deleteNodePS(int id);
+int findShortestArrivalTimePS();
+
 
 #endif //THESCHEDULER_QUEUE_H

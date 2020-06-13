@@ -18,5 +18,9 @@ void FCFS(struct Scheduler scheduler, struct Process listProcess[25]);
 void SJF(struct Scheduler scheduler);
 void RR(struct Scheduler scheduler, struct Process listProcess[25]);
 void MQS(struct Scheduler scheduler, struct Process listProcess[25]);
+void PS(struct Scheduler scheduler, struct Process listProcess[25]);
+void PSPreemptive(struct Scheduler scheduler, struct Process listProcess[25]);
+void PSRR(struct Scheduler scheduler, struct Process listProcess[]);
+
 
 #endif //THE_SCHEDULER_SCHEDULER_H
