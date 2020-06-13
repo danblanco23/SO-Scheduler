@@ -18,7 +18,7 @@ void FCFS(struct Scheduler scheduler, struct Process listProcess[25]){
             x = 1;
             last=process.lastTaylor;
             sum = process.result;
-            //int actual=(process.jobDone*50)+1;
+            //int actual=(process.jobDone*50)+1;	
             //int limit = scheduler.quantum*50+(process.jobDone*50);
             int limit = process.jobQuantity*50;
             for(int i = 1;i <= limit;i++)
@@ -210,3 +210,219 @@ void MQS(struct Scheduler scheduler, struct Process listProcess[25]){
 
     }
 }
+
+
+void PS(struct Scheduler scheduler, struct Process listProcess[25]){
+    timer = 0;
+    int a = 0;
+    while(first != NULL){
+        showQueue();
+        printf("----------------\n");
+
+        //struct Process process = dequeue(); //cabeza
+        struct Process *process = findHighestPriority(timer, scheduler.operationMode);
+
+        if(process->jobQuantity > 0){ //si el trabajo hecho por el proceso es menor al maximo pedido
+            long double x,sum,last;
+            x = 1;
+            last=process->lastTaylor;
+            sum = process->result;
+            //int actual=(process.jobDone*50)+1;
+            //int limit = scheduler.quantum*50+(process.jobDone*50);
+            int limit = process->jobQuantity*50;
+            for(int i = 1;i <= limit;i++)
+            {
+                last*=((x*x)*(2*i-1)*(2*i-1))/((2*i)*(2*i+1));
+                sum+=last;
+            }
+            process->lastTaylor = last;
+            process->result = sum;
+            process->jobQuantity = process->jobQuantity*0;
+
+            process->result = 2*process->result;
+            finishedProcess[a] = *process; // si el proceso termino su trabajo
+            a++;
+            printf("\nid %d, ress: %LF", process->id, process->result);
+
+        }
+//        for(int i = 0; i <= scheduler.processQuantity; i++){
+//            if(listProcess[i].arrivalTime == timer){
+//                enqueue(listProcess[i]);
+//            }
+//        }
+        if(first != NULL && first->process.arrivalTime > timer){
+            timer = first->process.arrivalTime;
+        } else{
+            timer++;
+        }
+    }
+}
+
+void PSPreemptive(struct Scheduler scheduler, struct Process listProcess[25]){
+    int a = 0;
+
+    while(first != NULL) {
+        showQueue();
+        printf("----------------88\n");
+
+        struct Process *process = findHighestPriority(timer, scheduler.operationMode);
+        printf("pid %d \n", process->id);
+
+        if (process->jobQuantity > 0) { //si el trabajo hecho por el proceso es menor al maximo pedido
+            long double x, sum, last;
+            x = 1;
+            last = process->lastTaylor;
+            sum = process->result;
+            int actual = (process->jobQuantity * 50);
+            int limit = 50;
+            //int limit = process.jobQuantity;
+            int i = process->lastIteration;
+            int limit2 = i - 1;
+
+            for (i; i <= limit + limit2 && i <= actual + limit2; i++) {
+                last *= ((x * x) * (2 * i - 1) * (2 * i - 1)) / ((2 * i) * (2 * i + 1));
+                sum += last;
+                process->lastIteration = i + 1;
+            }
+            process->lastTaylor = last;
+            process->result = sum;
+            process->jobDone = process->jobDone + 1;
+            process->jobQuantity = process->jobQuantity-1;
+            if (process->jobQuantity > 0) {
+                enqueue(*process);
+
+            } else{
+                process->result = 2 * process->result;
+                finishedProcess[a] = *process; // si el proceso termino su trabajo
+                a++;
+            }
+
+            for (int i = 1; i <= scheduler.processQuantity-1; i++) {
+                if (listProcess[i].arrivalTime == timer) {
+                    enqueue(listProcess[i]);
+                }
+            }
+        }
+        timer++;
+    }
+}
+
+void PSRR(struct Scheduler scheduler, struct Process listProcess[25]){
+    int a = 0;
+    while(first != NULL) {
+        showQueue();
+        printf("----------------\n");
+
+        //struct Process process = dequeue(); //cabeza
+        struct Node *highestPriorityNode = findHighestPriorityPS(timer, scheduler.operationMode);
+
+        if (highestPriorityNode->next != NULL){
+            if(highestPriorityNode->process.priority == highestPriorityNode->next->process.priority){
+
+                //Round Robin
+                if(highestPriorityNode->process.jobQuantity > 0){ //si el trabajo hecho por el proceso es menor al maximo pedido
+                    long double x,sum,last;
+                    x = 1;
+                    last = highestPriorityNode->process.lastTaylor;
+                    sum = highestPriorityNode->process.result;
+                    int actual = (highestPriorityNode->process.jobQuantity*50);
+                    int limit = scheduler.quantum*50;
+                    //int limit = process.jobQuantity;
+                    int i = highestPriorityNode->process.lastIteration;
+                    int limit2 = i-1;
+
+                    if(limit >= actual){ //Si el quantum es mayor a la carga de trabajo
+                        for(i; i <= limit+limit2 && i <= actual+limit2; i++) //cede el control de acuerdo al quantum
+                        {
+                            last*=((x*x)*(2*i-1)*(2*i-1))/((2*i)*(2*i+1));
+                            sum+=last;
+                            highestPriorityNode->process.lastIteration = i+1;
+                        }
+                        highestPriorityNode->process.lastTaylor = last;
+                        highestPriorityNode->process.result = sum;
+                        highestPriorityNode->process.jobQuantity = highestPriorityNode->process.jobQuantity*0; //Como la carga es menor al quantum, entonces termina de una vez
+
+
+                    }else{
+                        for(i; i <= limit+limit2 && i <= actual+limit2; i++) //cede el control de acuerdo al quantum
+                        {
+                            last*=((x*x)*(2*i-1)*(2*i-1))/((2*i)*(2*i+1));
+                            sum+=last;
+                            highestPriorityNode->process.lastIteration = i+1;
+                        }
+
+                        highestPriorityNode->process.lastTaylor = last;
+                        highestPriorityNode->process.result = sum;
+                        highestPriorityNode->process.jobQuantity = highestPriorityNode->process.jobQuantity-scheduler.quantum; //Se le resta a la cantidad de trabajo las unidades que el quantum le permitio hacer
+                    }
+
+                    if (highestPriorityNode->process.jobQuantity > 0){
+                        enqueue(highestPriorityNode->process);
+
+                    } else{
+                        highestPriorityNode->process.result = 2*highestPriorityNode->process.result;
+                        finishedProcess[a] = highestPriorityNode->process; // si el proceso termino su trabajo
+                        a++;
+                    }
+
+                }
+
+            }
+            else {  //PriorityScheduling
+                if (highestPriorityNode->process.jobQuantity >
+                    0) { //si el trabajo hecho por el proceso es menor al maximo pedido
+                    long double x, sum, last;
+                    x = 1;
+                    last = highestPriorityNode->process.lastTaylor;
+                    sum = highestPriorityNode->process.result;
+                    //int actual=(process.jobDone*50)+1;
+                    //int limit = scheduler.quantum*50+(process.jobDone*50);
+                    int i = highestPriorityNode->process.lastIteration;
+                    int limit2 = i - 1;
+                    int limit = highestPriorityNode->process.jobQuantity * 50;
+                    for (i; i <= limit + limit2; i++) {
+                        last *= ((x * x) * (2 * i - 1) * (2 * i - 1)) / ((2 * i) * (2 * i + 1));
+                        sum += last;
+                    }
+                    highestPriorityNode->process.lastTaylor = last;
+                    highestPriorityNode->process.result = sum;
+                    highestPriorityNode->process.jobQuantity = highestPriorityNode->process.jobQuantity * 0;
+
+                    highestPriorityNode->process.result = 2 * highestPriorityNode->process.result;
+                    finishedProcess[a] = highestPriorityNode->process; // si el proceso termino su trabajo
+                    a++;
+                    printf("\nid %d, ress: %LF", highestPriorityNode->process.id, highestPriorityNode->process.result);
+                }
+            }
+        }
+        else{ //PriorityScheduling
+            if(highestPriorityNode->process.jobQuantity > 0){ //si el trabajo hecho por el proceso es menor al maximo pedido
+                long double x,sum,last;
+                x = 1;
+                last= highestPriorityNode->process.lastTaylor;
+                sum = highestPriorityNode->process.result;
+                //int actual=(process.jobDone*50)+1;
+                //int limit = scheduler.quantum*50+(process.jobDone*50);
+                int i = highestPriorityNode->process.lastIteration;
+                int limit2 = i-1;
+                int limit = highestPriorityNode->process.jobQuantity*50;
+                for(i; i <= limit+limit2  ;i++)
+                {
+                    last*=((x*x)*(2*i-1)*(2*i-1))/((2*i)*(2*i+1));
+                    sum+=last;
+                }
+                highestPriorityNode->process.lastTaylor = last;
+                highestPriorityNode->process.result = sum;
+                highestPriorityNode->process.jobQuantity = highestPriorityNode->process.jobQuantity*0;
+
+                highestPriorityNode->process.result = 2*highestPriorityNode->process.result;
+                finishedProcess[a] = highestPriorityNode->process; // si el proceso termino su trabajo
+                a++;
+                printf("\nid %d, ress: %LF", highestPriorityNode->process.id, highestPriorityNode->process.result);
+            }
+        }
+
+    }
+
+}
+
